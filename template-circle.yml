@@ -2,7 +2,7 @@ machine:
   services:
     - docker
   hosts:
-    s2.testspace-qa.com: 34.213.188.166
+    s2.testspace-qa.com: ${qa-ip}
 
 general:
   branches:
