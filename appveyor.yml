@@ -1,6 +1,9 @@
 version: 1.0.{build}
 configuration: Release
 
+hosts:
+  s2.testspace-qa.com: ${qa-ip}
+
 branches:
   only:
     - standalone
