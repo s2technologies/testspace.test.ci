@@ -7,16 +7,16 @@ branches:
 
 before_install:
   - echo "34.213.188.166 s2.testspace-qa.com" | sudo tee -a /etc/hosts
+  - while ! nc -z s2.testspace-qa.com 80; do sleep 1; done
   - mkdir -p $HOME/bin
   - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-  - ping 34.213.188.166
-  - testspace config url http://s2.testspace-qa.com
+  - testspace config url http://S2_TESTSPACE@s2.testspace-qa.com
   - testspace -v
 
 env:
   matrix:
    - JOB=JOB-1
-   - JOB=JOB-2
+   #- JOB=JOB-2
    #- JOB=JOB-3
    #- JOB=JOB-4
    #- JOB=JOB-5
