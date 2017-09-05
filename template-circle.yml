@@ -13,7 +13,7 @@ general:
 dependencies:
   pre:
     - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-    - testspace config url http://499a20c107b8fd5888ec3b3a86c9099523162f4d:@s2.testspace-qa.com
+    - testspace config url http://$S2_TESTSPACE@s2.testspace-qa.com
     - testspace -v
     
 test:
