@@ -1,7 +1,7 @@
 language: c
 
 before_install:
-  - echo "${qa-ip} s2.testspace-qa.com" | sudo tee -a /etc/hosts
+  - echo "${qa-ip} s2.testspace-qa.com" | sudo tee -a /etc/hosts > /dev/null 2>&1
   - sudo /etc/init.d/networking restart
 
 env:
