@@ -3,10 +3,10 @@ language: generic
 before_install:
   # Setup a wildcard local DNS for *.dev
   - sudo apt-get install -qq -y --force-yes dnsmasq
-  - echo "listen-address=127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null
-  - echo "bind-interfaces" | sudo tee -a /etc/dnsmasq.conf > /dev/null
-  - echo "address=/testspace-qa.com/34.213.188.166" | sudo tee -a /etc/dnsmasq.conf > /dev/null
-  - echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null
+  - echo "listen-address=127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
+  - echo "bind-interfaces" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
+  - echo "address=/testspace-qa.com/34.213.188.166" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
+  - echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
   - sudo service dnsmasq restart
   - mkdir -p $HOME/bin
   - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
