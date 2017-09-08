@@ -2,7 +2,7 @@ machine:
   services:
     - docker
   hosts:
-    s2.testspace-qa.com: ${qa-ip}
+    s2.stridespace.net: ${qa-ip}
 
 general:
   branches:
@@ -13,7 +13,7 @@ general:
 dependencies:
   pre:
     - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-    - testspace config url http://$S2_TESTSPACE@s2.testspace-qa.com
+    - testspace config url http://$S2_TESTSPACE@s2.stridespace.net
     - testspace -v
     
 test:
