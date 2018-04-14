@@ -4,7 +4,7 @@ configuration: Release
 install:
   - appveyor DownloadFile https://testspace-client.s3.amazonaws.com/testspace-windows-dev.zip
   - 7z x -y testspace-windows-dev.zip
-  - testspace config url http://%TS_TOKEN%:@s2.stridespace.com/s2technologies:testspace.test.ci
+  - testspace config url https://%TS_TOKEN%:@s2.stridespace.com/s2technologies:testspace.test.ci
   - testspace -v
 
 # to run your custom scripts instead of automatic MSBuild

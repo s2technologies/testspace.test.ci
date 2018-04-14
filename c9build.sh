@@ -2,7 +2,7 @@
 
 mkdir -p $HOME/bin
 curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-testspace config url http://$TS_TOKEN:@s2.stridespace.com/s2technologies:testspace.test.ci
+testspace config url https://$TS_TOKEN:@s2.stridespace.com/s2technologies:testspace.test.ci
 testspace -v
 
 printenv > printenv.txt
