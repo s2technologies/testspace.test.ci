@@ -11,7 +11,7 @@ general:
 dependencies:
   pre:
     - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-    - GIT_DIR=invalid-dir/.git testspace config url http://s2.stridespace.com
+    - GIT_DIR=invalid-dir/.git testspace config url https://s2.stridespace.com
     - testspace -v
     
 test:
