@@ -8,7 +8,7 @@ branches:
 before_install:
   - mkdir -p $HOME/bin
   - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-  - testspace config url http://s2.stridespace.com
+  - testspace config url https://s2.stridespace.com
   - testspace -v
 
 env:
