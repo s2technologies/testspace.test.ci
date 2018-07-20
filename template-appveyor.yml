@@ -12,7 +12,7 @@ branches:
 install:
   - appveyor DownloadFile https://testspace-client.s3.amazonaws.com/testspace-windows-dev.zip
   - 7z x -y testspace-windows-dev.zip
-  - testspace config url http://%S2_TESTSPACE%@s2.stridespace.net
+  - testspace config url http://s2.stridespace.net
   - testspace -v
   
 environment:
