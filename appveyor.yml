@@ -42,6 +42,7 @@ build_script:
   - echo build script
  
 test_script:
-  - testspace result*.xml [ALL]result*.xml [$JOB]result*.xml
+  - echo This is my custom test script
   
 after_test:
+  - sh ts-time-push.sh
