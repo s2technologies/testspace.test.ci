@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby
+    branches:
+      only:
+        - standalone
+        - circle
+    steps:
+      - checkout
+      - run:
+          name: Setup domain to point to QA instance ip
+          command: echo 54.202.81.91 s2.stridespace.net | sudo tee -a /etc/hosts
+      - run:
+          name: Download testspace client
+          command: curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+      - run:
+          name: Configure testspace client
+          command: testspace config url http://s2.stridespace.net
+      - run:
+          name: Print version of testspace client
+          command: testspace -v
+      - run:
+          name: Push results to Testspace instance incrementally
+          command: ./incremental.sh 

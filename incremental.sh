@@ -20,8 +20,8 @@ do
   echo "  JOB-$i Upload time in milliseconds: $TIME_DIFF" >> timing.log
 
   # CSV file
-  echo "JOB-$i Content size, $CONTENT_SIZE" >> timing.csv
   echo "JOB-$i Upload time, $TIME_DIFF" > timing.csv
+  echo "JOB-$i Content size, $CONTENT_SIZE" >> timing.csv
 
   testspace [JOB-$i]"timing.log{timing.csv:Tracking Time for JOB-$i}" ?add
 done
