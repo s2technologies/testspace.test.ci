@@ -1,7 +1,7 @@
 language: c
 
 before_install:
-  - echo "${qa-ip} s2.testspace-qa.com" | sudo tee -a /etc/hosts > /dev/null 2>&1
+  - echo "${qa-ip} s2.stridespace.net" | sudo tee -a /etc/hosts > /dev/null 2>&1
   - sudo /etc/init.d/networking restart
 
 env:
@@ -12,7 +12,7 @@ build:
   ci:
    - mkdir -p $HOME/bin
    - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-   - testspace config url http://s2.testspace-qa.com/athlon-krum:testspace.test.ci
+   - testspace config url http://s2.stridespace.net/athlon-krum:testspace.test.ci
    - testspace -v
    - printenv > printenv.txt
 
