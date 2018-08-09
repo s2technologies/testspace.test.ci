@@ -17,8 +17,8 @@ dependencies:
 test:
   override:
     - echo test override
-   
-  post:
+#   
+#  post:
 #    - ./incremental.sh 
     - for (( i=$CIRCLE_NODE_INDEX; i<20; i=i+$CIRCLE_NODE_TOTAL)); do testspace [JOB-$i]results.xml; done
         parallel: true
