@@ -31,10 +31,10 @@ build:
   ci:
    - mkdir -p $HOME/bin
    - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-   - testspace config url https://s2.stridespace.com
+   - testspace config url https://s2.test.stridespace.com
 
   on_success:
-   - testspace [$JOB]results.xml 
-   
+   - testspace [$JOB]results.xml
+
   on_failure:
-   - testspace [$JOB]results.xml 
+   - testspace [$JOB]results.xml
