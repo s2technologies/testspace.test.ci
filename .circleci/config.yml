@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run:
           name: Setup domain to point to QA instance ip
-          command: echo 54.202.81.91 s2.test.stridespace.com | sudo tee -a /etc/hosts
+          command: echo 34.219.203.196 s2.test.stridespace.com | sudo tee -a /etc/hosts
       - run:
           name: Download testspace client
           command: curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
