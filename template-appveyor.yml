@@ -2,12 +2,12 @@ version: 1.0.{build}
 configuration: Release
 
 hosts:
-  s2.stridespace.net: ${qa-ip}
+  s2.test.stridespace.com: ${qa-ip}
 
 install:
   - appveyor DownloadFile https://testspace-client.s3.amazonaws.com/testspace-windows-dev.zip
   - 7z x -y testspace-windows-dev.zip
-  - testspace config url http://s2.stridespace.net/athlon-krum:testspace.test.ci
+  - testspace config url http://s2.test.stridespace.com/athlon-krum:testspace.test.ci
   - testspace -v
 
 # to run your custom scripts instead of automatic MSBuild
