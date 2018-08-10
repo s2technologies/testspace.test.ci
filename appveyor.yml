@@ -2,7 +2,7 @@ version: 1.0.{build}
 configuration: Release
 
 hosts:
-  s2.test.stridespace.com: 34.219.5.249
+  s2.test.stridespace.com: 35.167.19.107
 
 branches:
   only:
