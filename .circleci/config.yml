@@ -15,7 +15,7 @@ jobs:
           name: Install Testspace client
           command: |
             curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
-            testspace config url 06672ad55f6e63bbc07fc87cf33c9225d1407ace:@s2.testspace.com
+            testspace config url https://s2.stridespace.com
             testspace -v
       - run:
           name: Test
