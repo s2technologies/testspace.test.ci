@@ -1,0 +1,26 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: debian/7-slim
+    branches:
+      only:
+        - standalone
+        - circle
+    parallelism: 5
+    steps:
+      - checkout
+      - run:
+          name: Install Testspace client
+          command: |
+            curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+            command: testspace config url 06672ad55f6e63bbc07fc87cf33c9225d1407ace:@s2.testspace.com
+            testspace -v
+      - run:
+          name: Test
+          command: echo test run
+      - run:
+          name: Push to Testspace server
+          command: for (( i=$CIRCLE_NODE_INDEX+1; i<=20; i=i+$CIRCLE_NODE_TOTAL)); do testspace [JOB-$i]results.xml; done
+          when: always
