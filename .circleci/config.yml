@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian/7-slim
+      - image: circleci/ruby
     branches:
       only:
         - standalone
