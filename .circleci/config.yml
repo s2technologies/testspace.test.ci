@@ -7,7 +7,7 @@ jobs:
     branches:
       only:
         - standalone
-        - circle
+        - circle2
     parallelism: 5
     steps:
       - checkout
