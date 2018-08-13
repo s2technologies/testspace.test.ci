@@ -10,7 +10,7 @@ before_install:
   - sudo apt-get install -qq -y --force-yes dnsmasq
   - echo "listen-address=127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
   - echo "bind-interfaces" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
-  - echo "address=/test.stridespace.com/35.166.61.175" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
+  - echo "address=/test.stridespace.com/34.219.189.180" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
   - echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
   - sudo service dnsmasq restart
   - mkdir -p $HOME/bin
