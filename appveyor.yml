@@ -2,7 +2,7 @@ version: 1.0.{build}
 configuration: Release
 
 hosts:
-  s2.test.stridespace.com: 35.167.19.107
+  s2.test.stridespace.com: 54.184.32.73
 
 install:
   - appveyor DownloadFile https://testspace-client.s3.amazonaws.com/testspace-windows-dev.zip
