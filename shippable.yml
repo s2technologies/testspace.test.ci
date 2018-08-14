@@ -1,7 +1,7 @@
 language: c
 
 before_install:
-  - echo "34.220.177.184 s2.test.stridespace.com" | sudo tee -a /etc/hosts > /dev/null 2>&1
+  - echo "54.202.152.33 s2.test.stridespace.com" | sudo tee -a /etc/hosts > /dev/null 2>&1
   - sudo /etc/init.d/networking restart
 
 env:
