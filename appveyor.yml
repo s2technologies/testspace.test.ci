@@ -1,9 +1,6 @@
 version: 1.0.{build}
 configuration: Release
 
-hosts:
-  s2.test.stridespace.com: 54.202.152.33
-
 branches:
   only:
     - standalone
@@ -39,7 +36,8 @@ environment:
    - JOB: JOB-20
    
 build_script:
-  - echo build script
+  - set /p QA_IP=<commit-trigger.txt
+  - ECHO %QA_IP% s2.test.stridespace.com>>"%windir%\System32\drivers\etc\hosts"
  
 test_script:
   - echo This is my custom test script
