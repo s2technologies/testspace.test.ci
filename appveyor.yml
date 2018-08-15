@@ -7,11 +7,14 @@ branches:
     - appveyor
 
 install:
+  - set /p QA_IP=<commit-trigger.txt
+  - echo. >> "%windir%\System32\drivers\etc\hosts"
+  - ECHO %QA_IP% s2.test.stridespace.com>>"%windir%\System32\drivers\etc\hosts"
   - appveyor DownloadFile https://testspace-client.s3.amazonaws.com/testspace-windows-dev.zip
   - 7z x -y testspace-windows-dev.zip
   - testspace config url http://s2.test.stridespace.com
   - testspace -v
-  
+
 environment:
   matrix:
    - JOB: JOB-1
@@ -34,13 +37,12 @@ environment:
    - JOB: JOB-18
    - JOB: JOB-19
    - JOB: JOB-20
-   
+
 build_script:
-  - set /p QA_IP=<commit-trigger.txt
-  - ECHO %QA_IP% s2.test.stridespace.com>>"%windir%\System32\drivers\etc\hosts"
- 
+  - echo build script
+
 test_script:
   - echo This is my custom test script
-  
+
 after_test:
   - testspace results.xml [ALL]results.xml [%JOB%]results.xml
