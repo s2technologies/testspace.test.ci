@@ -1,0 +1,25 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/buildpack-deps:18.04-scm
+    branches:
+      only:
+        - standalone
+        - circle2
+    parallelism: 5
+    steps:
+      - checkout
+      - run:
+          name: Setup domain to point to QA instance ip
+          command: echo $(< commit-trigger.txt) s2.test.stridespace.com | sudo tee -a /etc/hosts
+      - run:
+          name: Install Testspace client
+          command: |
+            curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+            testspace config url http://s2.test.stridespace.com
+            testspace -v
+      - run:
+          name: Push to Testspace server
+          command: ./ts-time-push.sh
+          when: always
