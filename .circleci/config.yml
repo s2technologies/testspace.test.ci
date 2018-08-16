@@ -11,13 +11,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup domain to point to QA instance ip
-          command: echo $(< commit-trigger.txt) s2.test.stridespace.com | sudo tee -a /etc/hosts
-      - run:
-          name: Install Testspace client
+          name: Install and configure Testspace client
           command: |
+            QA_IP_DOMAIN=$(< commit-trigger.txt)
+            export QA_IP=${QA_IP_DOMAIN% *}
+            export QA_DOMAIN=${QA_IP_DOMAIN#* }
+            echo QA_IP QA_DOMAIN | sudo tee -a /etc/hosts
             curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
-            testspace config url http://s2.test.stridespace.com
+            testspace config url http://$QA_DOMAIN
             testspace -v
       - run:
           name: Push to Testspace server
