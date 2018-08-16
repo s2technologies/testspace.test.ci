@@ -1,7 +1,10 @@
 language: c
 
 before_install:
-  - echo "$(< commit-trigger.txt) s2.test.stridespace.com" | sudo tee -a /etc/hosts > /dev/null 2>&1
+  - QA_IP_DOMAIN=$(< commit-trigger.txt)
+  - export QA_IP=${QA_IP_DOMAIN% *}
+  - export QA_DOMAIN=${QA_IP_DOMAIN#* }
+  - echo QA_IP QA_DOMAIN | sudo tee -a /etc/hosts > /dev/null 2>&1
   - sudo /etc/init.d/networking restart
 
 branches:
@@ -38,7 +41,7 @@ build:
   ci:
    - mkdir -p $HOME/bin
    - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-   - testspace config url http://s2.test.stridespace.com
+   - testspace config url http://$QA_DOMAIN
 
   on_success:
    - ./ts-time-push.sh 

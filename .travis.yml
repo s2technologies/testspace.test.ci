@@ -1,0 +1,48 @@
+language: generic
+
+branches:
+  only:
+  - standalone
+  - travis
+
+before_install:
+  # Setup a wildcard local DNS for *.dev
+  - sudo apt-get install -qq -y --force-yes dnsmasq
+  - echo "listen-address=127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
+  - echo "bind-interfaces" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
+  - echo "address=/test.stridespace.com/$(< commit-trigger.txt)" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
+  - echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
+  - sudo service dnsmasq restart
+  - mkdir -p $HOME/bin
+  - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
+  - testspace config url http://s2.test.stridespace.com
+  - testspace -v
+
+env:
+  matrix:
+   - JOB=JOB-1
+   - JOB=JOB-2
+   - JOB=JOB-3
+   - JOB=JOB-4
+   - JOB=JOB-5
+   - JOB=JOB-6
+   - JOB=JOB-7
+   - JOB=JOB-8
+   - JOB=JOB-9
+   - JOB=JOB-10
+   - JOB=JOB-11
+   - JOB=JOB-12
+   - JOB=JOB-13
+   - JOB=JOB-14
+   - JOB=JOB-15
+   - JOB=JOB-16
+   - JOB=JOB-17
+   - JOB=JOB-18
+   - JOB=JOB-19
+   - JOB=JOB-20
+
+script:
+  - echo script
+
+after_script:
+  - ./ts-time-push.sh
