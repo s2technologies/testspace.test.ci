@@ -1,47 +1,6 @@
 language: c
 
-before_install:
-  - echo "$(< commit-trigger.txt) s2.test.stridespace.com" | sudo tee -a /etc/hosts > /dev/null 2>&1
-  - sudo /etc/init.d/networking restart
-
 branches:
   only:
     - standalone
     - shippable
-
-env:
-  global:
-    - secure: P9m0YKqW/jEPu78lCs/f6Rr5/nhgq2/ZwuiVm35yJoUjCUitDm2h70hbe0a/hmpmcvgcR6aVcHx1FPiHHc3qWJ7k28M9lkEGbxT4QgFhpr/M806sn8YNg1MD4J3VArg+GOMUMVdBcGo4f1uK6R2tkrwi3aDiwWola60CxQvEtFjxpsTbS0pT7qy9KIARZggIrIFjJFaK9F2sA6jD/MbvG2hAAvDGKSYsQxCZSiIhO1Eo6NMmUCOmPy4urf7GvdzGZcSjdhntNGYioM+3BXIKpdBBBpomSA2d+ejJQAufezQI5crVcGtjCF1/c/AEN6/7MfBdc4p0jg18jz4p+dyERw==
-  matrix:
-    - JOB=JOB-1
-    - JOB=JOB-2
-    - JOB=JOB-3
-    - JOB=JOB-4
-    - JOB=JOB-5
-    - JOB=JOB-6
-    - JOB=JOB-7
-    - JOB=JOB-8
-    - JOB=JOB-9
-    - JOB=JOB-10
-    - JOB=JOB-11
-    - JOB=JOB-12
-    - JOB=JOB-13
-    - JOB=JOB-14
-    - JOB=JOB-15
-    - JOB=JOB-16
-    - JOB=JOB-17
-    - JOB=JOB-18
-    - JOB=JOB-19
-    - JOB=JOB-20
-
-build:
-  ci:
-   - mkdir -p $HOME/bin
-   - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-   - testspace config url http://s2.test.stridespace.com
-
-  on_success:
-   - ./ts-time-push.sh 
-   
-  on_failure:
-   - ./ts-time-push.sh 

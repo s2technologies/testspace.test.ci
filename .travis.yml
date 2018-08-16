@@ -1,0 +1,6 @@
+language: generic
+
+branches:
+  only:
+  - standalone
+  - travis
