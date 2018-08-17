@@ -6,4 +6,4 @@ jobs:
     branches:
       only:
         - standalone
-        - circle2
+        - circle
