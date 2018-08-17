@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby
+      - image: circleci/buildpack-deps:18.04-scm
     branches:
       only:
         - standalone
@@ -25,4 +25,4 @@ jobs:
           command: printenv > printenv.txt
       - run:
           name: Push environment details to result
-          command: testspace results.xml printenv.txt "standalone#circle.$CIRCLE_BUILD_NUM" --repo git
+          command: testspace results.xml printenv.txt "standalone#circle.$CIRCLE_BUILD_NUM" --repo=git --build-url=$CIRCLE_BUILD_URL

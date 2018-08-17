@@ -21,4 +21,4 @@ script:
   - printenv > printenv.txt
  
 after_script:
-  - testspace results.xml printenv.txt "standalone#travis.$TRAVIS_BUILD_NUMBER" --repo git
+  - testspace results.xml printenv.txt "standalone#travis.$TRAVIS_BUILD_NUMBER" --repo=git --build-url="https://travis-ci.com/$TRAVIS_REPO_SLUG/builds/$TRAVIS_BUILD_ID"
