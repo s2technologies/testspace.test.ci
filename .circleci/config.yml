@@ -10,17 +10,16 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup domain to point to QA instance ip
-          command: echo $(< commit-trigger.txt) s2.test.stridespace.com | sudo tee -a /etc/hosts
-      - run:
-          name: Download testspace client
-          command: curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
-      - run:
-          name: Configure testspace client
-          command: testspace config url http://s2.test.stridespace.com/athlon-krum:testspace.test.ci
-      - run:
-          name: Print version of testspace client
-          command: testspace -v
+          name: Install and configure Testspace client
+          command: |
+            QA_IP_URL=$(< commit-trigger.txt)
+            export QA_IP=${QA_IP_URL% *}
+            export QA_URL=${QA_IP_URL#* }
+            export QA_DOMAIN=${QA_URL#http://}
+            echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts
+            curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+            testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+            testspace -v
       - run:
           name: Get environment details
           command: printenv > printenv.txt

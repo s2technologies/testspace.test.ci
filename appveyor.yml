@@ -2,15 +2,20 @@ version: 1.0.{build}
 configuration: Release
 
 install:
+  - set /p QA_IP_URL=<commit-trigger.txt
+  - for /f "tokens=1" %%a IN ("%QA_IP_URL%") DO (set QA_IP=%%a)
+  - for /f "tokens=2" %%a IN ("%QA_IP_URL%") DO (set QA_URL=%%a)
+  - set QA_DOMAIN=%QA_URL:http://=%
+  - echo. >> "%windir%\System32\drivers\etc\hosts"
+  - ECHO %QA_IP% %QA_DOMAIN%>>"%windir%\System32\drivers\etc\hosts"
   - appveyor DownloadFile https://testspace-client.s3.amazonaws.com/testspace-windows-dev.zip
   - 7z x -y testspace-windows-dev.zip
-  - testspace config url http://s2.test.stridespace.com/athlon-krum:testspace.test.ci
+  - testspace config "url %QA_URL%/s2technologies:testspace.test.ci"
   - testspace -v
 
 # to run your custom scripts instead of automatic MSBuild
 build_script:
-  - set /p QA_IP=<commit-trigger.txt
-  - ECHO %QA_IP% s2.test.stridespace.com>>"%windir%\System32\drivers\etc\hosts"
+  - echo build script
 
 # to run your custom scripts instead of automatic tests
 test_script:
