@@ -10,7 +10,7 @@ install:
   - ECHO %QA_IP% %QA_DOMAIN%>>"%windir%\System32\drivers\etc\hosts"
   - appveyor DownloadFile https://testspace-client.s3.amazonaws.com/testspace-windows-dev.zip
   - 7z x -y testspace-windows-dev.zip
-  - testspace config "url %QA_URL%/s2technologies:testspace.test.ci"
+  - testspace config url "%QA_URL%/s2technologies:testspace.test.ci"
   - testspace -v
 
 # to run your custom scripts instead of automatic MSBuild
