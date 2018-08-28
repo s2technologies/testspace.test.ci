@@ -1,9 +1,0 @@
-machine:
-  services:
-    - docker
-
-general:
-  branches:
-    only:
-      - standalone
-      - circle
