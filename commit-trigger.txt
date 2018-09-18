@@ -1,1 +1,1 @@
-52.41.111.201 http://s2.test.stridespace.com
+34.222.101.218 http://s2.test.stridespace.com
