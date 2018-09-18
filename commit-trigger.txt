@@ -1,1 +1,1 @@
-54.184.56.34 http://s2.test.stridespace.com
+34.223.7.29 http://s2.test.stridespace.com
