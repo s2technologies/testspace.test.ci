@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Push to Testspace server
           command: |
-            for ((i=$CIRCLE_NODE_INDEX+1; i<=20; i=i+$CIRCLE_NODE_TOTAL))
+            for ((i=$CIRCLE_NODE_INDEX+1; i<=10; i=i+$CIRCLE_NODE_TOTAL))
             do
               export JOB=JOB-$i
               ./ts-time-push.sh
