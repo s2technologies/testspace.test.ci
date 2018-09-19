@@ -26,8 +26,7 @@ sudo pip install pytest
 py.test generate-results.py --junitxml=results.xml -v --tb=no
 </pre>
 
-The Testspace branch(space) content will be pushed from a private repo used to trigger the `other` branches to execute their specific CI tests.
-The [trigger repo](https://github.com/s2technologies/testspace.test.ci.trigger) is a `private` repo. 
+The Testspace branch(space) content will be pushed from via [manual trigger](https://github.com/s2technologies/testspace/wiki/Setup-for-Integration-Testing#manually-triggering-tests-c9-or-local-environment) to the `other` branches to execute their specific CI tests.
 
 ### Standalone
 
