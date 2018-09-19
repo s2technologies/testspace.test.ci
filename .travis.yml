@@ -34,16 +34,6 @@ env:
    - JOB=JOB-8
    - JOB=JOB-9
    - JOB=JOB-10
-   - JOB=JOB-11
-   - JOB=JOB-12
-   - JOB=JOB-13
-   - JOB=JOB-14
-   - JOB=JOB-15
-   - JOB=JOB-16
-   - JOB=JOB-17
-   - JOB=JOB-18
-   - JOB=JOB-19
-   - JOB=JOB-20
 
 script:
   - echo script
