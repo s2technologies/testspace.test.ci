@@ -1,1 +1,1 @@
-54.202.209.59 http://s2.test.stridespace.com
+34.222.153.82 http://s2.test.stridespace.com
