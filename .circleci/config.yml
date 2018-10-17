@@ -21,6 +21,7 @@ jobs:
             curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
             testspace config url $QA_URL
             testspace -v
+            printenv
       - run:
           name: Push to Testspace server
           command: |
