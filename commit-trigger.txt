@@ -1,1 +1,1 @@
-34.217.41.17 http://s2.test.stridespace.com
+34.212.214.170 http://s2.test.stridespace.com
