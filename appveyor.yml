@@ -17,6 +17,7 @@ install:
   - 7z x -y testspace-windows-dev.zip
   - testspace config url %QA_URL%
   - testspace -v
+  - set
 
 environment:
   matrix:
