@@ -21,6 +21,7 @@ before_install:
   - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
   - testspace config url $QA_URL
   - testspace -v
+  - printenv
 
 env:
   matrix:
