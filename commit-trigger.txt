@@ -1,1 +1,1 @@
-52.11.50.233 http://s2.test.stridespace.com
+34.220.13.228 http://s2.test.stridespace.com
