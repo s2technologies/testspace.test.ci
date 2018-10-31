@@ -1,1 +1,1 @@
-52.43.166.4 http://s2.test.stridespace.com
+34.222.134.17 http://s2.test.stridespace.com
