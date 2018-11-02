@@ -1,1 +1,1 @@
-52.25.82.136 http://s2.test.stridespace.com
+54.185.234.88 http://s2.test.stridespace.com
