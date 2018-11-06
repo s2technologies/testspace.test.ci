@@ -1,1 +1,1 @@
-52.10.110.129 http://s2.test.stridespace.com
+54.188.2.196 http://s2.test.stridespace.com
