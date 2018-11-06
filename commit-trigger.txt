@@ -1,1 +1,1 @@
-54.202.125.153 http://s2.test.stridespace.com
+34.222.122.253 http://s2.test.stridespace.com
