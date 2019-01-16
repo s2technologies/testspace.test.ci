@@ -1,1 +1,1 @@
-34.222.236.130 http://s2.test.stridespace.com
+52.26.245.207 http://s2.test.stridespace.com
