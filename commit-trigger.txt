@@ -1,1 +1,1 @@
-52.11.59.71 http://s2.test.stridespace.com
+34.216.223.91 http://s2.test.stridespace.com
