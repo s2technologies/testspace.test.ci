@@ -1,1 +1,1 @@
-52.33.83.171 http://s2.test.stridespace.com
+54.149.154.84 http://s2.test.stridespace.com
