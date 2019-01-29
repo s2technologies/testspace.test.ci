@@ -1,1 +1,1 @@
-34.220.103.244 http://s2.test.stridespace.com
+52.36.205.223 http://s2.test.stridespace.com
