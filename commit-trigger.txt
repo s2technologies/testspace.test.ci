@@ -1,1 +1,1 @@
-52.39.6.9 http://s2.test.stridespace.com
+34.220.113.110 http://s2.test.stridespace.com
