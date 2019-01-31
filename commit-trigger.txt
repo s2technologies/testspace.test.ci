@@ -1,1 +1,1 @@
-52.12.11.49 http://s2.test.stridespace.com
+35.162.17.104 http://s2.test.stridespace.com
