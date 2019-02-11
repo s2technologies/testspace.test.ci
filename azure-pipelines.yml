@@ -38,8 +38,7 @@ jobs:
       export QA_DOMAIN=${QA_URL#http://}
       echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts
       curl -s https://testspace-client.s3.amazonaws.com/testspace-darwin-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
-      #testspace config url $QA_URL
-      testspace config url "s2.testspace.com/stridespace:testspace.test.ci/"
+      testspace config url $QA_URL
       testspace -v
       printenv
     displayName: 'setup'
