@@ -3,6 +3,7 @@ trigger:
   branches:
     include:
     - azure
+    - standalone
 jobs:
 - job: macOS
   strategy:
