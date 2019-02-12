@@ -1,0 +1,31 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - azure
+    - standalone
+jobs:
+- job: macOS
+
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: |
+      QA_IP_URL=$(< commit-trigger.txt)
+      export QA_IP=${QA_IP_URL% *}
+      export QA_URL=${QA_IP_URL#* }
+      export QA_DOMAIN=${QA_URL#http://}
+      echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts
+      curl -s https://testspace-client.s3.amazonaws.com/testspace-darwin-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+      testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+      testspace -v
+    displayName: 'setup'
+  - script: |
+      printenv > printenv.txt
+    displayName: 'echo'
+  - script: |
+      build_url="${SYSTEM_TEAMFOUNDATIONCOLLECTIONURI}${SYSTEM_TEAMPROJECTID}/_build/results?buildId=${BUILD_BUILDID}"
+      echo $build_url
+      testspace results.xml printenv.txt "standalone#azure.$BUILD_BUILDID" --repo=git --build-url=$build_url
+    condition: always()
+    displayName: 'publish'
