@@ -1,6 +1,6 @@
-TIME_START=$(date +%s%3N)
+TIME_START=$(date +%s000)
 testspace result*.xml [ALL]result*.xml [$JOB]result*.xml
-TIME_END=$(date +%s%3N)
+TIME_END=$(date +%s000)
 TIME_DIFF=$(( $TIME_END - $TIME_START ))
 
 testspace results.xml [ALL]results.xml [$JOB]results.xml file://$PWD/check-size.xml
