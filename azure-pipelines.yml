@@ -6,28 +6,28 @@ trigger:
     - standalone
 jobs:
 - job: macOS
-  # strategy:
-  #   matrix:
-  #     JOB-1:
-  #       JOB: JOB-1
-  #     JOB-2:
-  #       JOB: JOB-2
-  #     JOB-3:
-  #       JOB: JOB-3
-  #     JOB-4:
-  #       JOB: JOB-4
-  #     JOB-5:
-  #       JOB: JOB-5
-  #     JOB-6:
-  #       JOB: JOB-6
-  #     JOB-7:
-  #       JOB: JOB-7
-  #     JOB-8:
-  #       JOB: JOB-8
-  #     JOB-9:
-  #       JOB: JOB-9
-  #     JOB-10:
-  #       JOB: JOB-10
+  strategy:
+    matrix:
+      JOB-1:
+        JOB: JOB-1
+      JOB-2:
+        JOB: JOB-2
+      JOB-3:
+        JOB: JOB-3
+      JOB-4:
+        JOB: JOB-4
+      JOB-5:
+        JOB: JOB-5
+      JOB-6:
+        JOB: JOB-6
+      JOB-7:
+        JOB: JOB-7
+      JOB-8:
+        JOB: JOB-8
+      JOB-9:
+        JOB: JOB-9
+      JOB-10:
+        JOB: JOB-10
 
   pool:
     vmImage: 'macOS-10.13'
