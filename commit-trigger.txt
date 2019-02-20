@@ -1,1 +1,1 @@
-52.38.60.58 http://s2.test.stridespace.com
+34.214.207.111 http://s2.test.stridespace.com
