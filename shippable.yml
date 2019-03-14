@@ -35,8 +35,5 @@ build:
   ci:
    - echo ci script
 
-  on_success:
-   - ./ts-time-push.sh 
-   
-  on_failure:
+  always:
    - ./ts-time-push.sh 
