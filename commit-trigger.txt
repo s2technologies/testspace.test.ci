@@ -1,1 +1,1 @@
-34.220.5.70 http://s2.test.stridespace.com
+35.163.140.40 http://s2.test.stridespace.com
