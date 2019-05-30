@@ -1,1 +1,1 @@
-34.220.212.190 http://s2.test.stridespace.com
+52.40.146.178 http://s2.test.stridespace.com
