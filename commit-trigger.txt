@@ -1,1 +1,1 @@
-52.40.146.178 http://s2.test.stridespace.com
+34.220.243.84 http://s2.test.stridespace.com
