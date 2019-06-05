@@ -29,6 +29,6 @@ goto:eof
 :time2ms
 setlocal
 rem The format of %TIME% is HH:MM:SS,CS for example 23:59:59,99 (centiseconds)
-set t=%TIME%
+set t=%TIME: =0%
 endlocal&set /a %~1=(1%t:~0,2%-100)*3600000 + (1%t:~3,2%-100)*60000 + (1%t:~6,2%-100)*1000 + (1%t:~9,2%-100)*10
 goto:eof
