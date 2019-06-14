@@ -1,1 +1,1 @@
-34.215.33.40 http://s2.test.stridespace.com
+54.186.119.236 http://s2.test.stridespace.com
