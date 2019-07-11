@@ -1,1 +1,1 @@
-54.187.214.81 http://s2.test.stridespace.com
+54.191.201.125 http://s2.test.stridespace.com
