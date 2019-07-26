@@ -1,1 +1,1 @@
-35.167.91.162 http://s2.test.stridespace.com
+35.162.168.92 http://s2.test.stridespace.com
