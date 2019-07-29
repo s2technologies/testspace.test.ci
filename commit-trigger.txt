@@ -1,1 +1,1 @@
-35.162.168.92 http://s2.test.stridespace.com
+54.185.138.202 http://s2.test.stridespace.com
