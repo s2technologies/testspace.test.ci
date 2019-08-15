@@ -1,1 +1,1 @@
-35.160.246.216 http://s2.test.stridespace.com
+54.201.140.41 http://s2.test.stridespace.com
