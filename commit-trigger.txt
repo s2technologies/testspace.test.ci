@@ -1,1 +1,1 @@
-18.237.4.206 http://s2.test.stridespace.com
+34.220.7.75 http://s2.test.stridespace.com
