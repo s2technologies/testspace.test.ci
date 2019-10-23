@@ -7,9 +7,9 @@ on:
 
 jobs:
   build:
-    name: Standalone
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
       - name: Install and configure Testspace client
         run: |
           QA_IP_URL=$(< commit-trigger.txt)
