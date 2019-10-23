@@ -1,0 +1,31 @@
+name: Standalone
+on:
+  push:
+    branches:
+      - actions
+      - standalone
+
+jobs:
+  build:
+    name: Standalone
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install and configure Testspace client
+        run: |
+          QA_IP_URL=$(< commit-trigger.txt)
+          export QA_IP=${QA_IP_URL% *}
+          export QA_URL=${QA_IP_URL#* }
+          export QA_DOMAIN=${QA_URL#http://}
+          echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts
+          curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+          testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+          testspace -v
+      - name: Get environment details
+        run: printenv > printenv.txt
+      - name: Push environment details to result
+        run: |
+          GITHUB_CHECK_SUITE_ID=`curl -H "Accept: application/vnd.github.antiope-preview+json" -s https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/check-suites?app_id=15368 | jq -r '.check_suites[0].id'`
+          build_url="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks?check_suite_id=${GITHUB_CHECK_SUITE_ID}";
+          echo $build_url
+          testspace results.xml printenv.txt "standalone#actions.$GITHUB_CHECK_SUITE_ID" --repo=git --build-url=$build_url
+        if: always()
