@@ -29,3 +29,5 @@ jobs:
           echo $build_url
           testspace results.xml printenv.txt "standalone#actions.$GITHUB_CHECK_SUITE_ID" --repo=git --build-url=$build_url
         if: always()
+        env: # temporary until Actions "build-bot" server support provided
+          TESTSPACE_TOKEN: ${{ secrets.TESTSPACE_TOKEN }}

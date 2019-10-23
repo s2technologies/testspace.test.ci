@@ -26,5 +26,3 @@ jobs:
       - run:
           name: Push environment details to result
           command: testspace results.xml printenv.txt "standalone#circle.$CIRCLE_BUILD_NUM" --repo=git --build-url=$CIRCLE_BUILD_URL
-          env: # temporary until Actions "build-bot" server support provided
-            TESTSPACE_TOKEN: ${{ secrets.TESTSPACE_TOKEN }}
