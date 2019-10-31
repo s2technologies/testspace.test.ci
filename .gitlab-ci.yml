@@ -1,22 +1,23 @@
 image: buildpack-deps:18.04-scm
 
-only:
-  - standalone
-  - gitlab
-
-before_script:
-  - QA_IP_URL=$(< commit-trigger.txt)
-  - export QA_IP=${QA_IP_URL% *}
-  - export QA_URL=${QA_IP_URL#* }
-  - export QA_DOMAIN=${QA_URL#http://}
-  - echo $QA_IP $QA_DOMAIN | tee -a /etc/hosts
-  - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
-  - testspace config url "$QA_URL/s2technologies:testspace.test.ci"
-  - testspace -v
-
-env:
+job:
+  only:
+    refs:
+      - standalone
+      - gitlab
+  
+  before_script:
+    - QA_IP_URL=$(< commit-trigger.txt)
+    - export QA_IP=${QA_IP_URL% *}
+    - export QA_URL=${QA_IP_URL#* }
+    - export QA_DOMAIN=${QA_URL#http://}
+    - echo $QA_IP $QA_DOMAIN | tee -a /etc/hosts
+    - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
+    - testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+    - testspace -v
+  
   script:
     - printenv > printenv.txt
-
-after_script:
-  - testspace results.xml printenv.txt "standalone#gitlab.$CI_PIPELINE_ID" --repo=git --build-url=$CI_PIPELINE_URL
+  
+  after_script:
+    - testspace results.xml printenv.txt "standalone#gitlab.$CI_PIPELINE_ID" --repo=git --build-url=$CI_PIPELINE_URL
