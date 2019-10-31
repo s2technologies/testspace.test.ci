@@ -13,6 +13,10 @@ job:
     - export QA_DOMAIN=${QA_URL#http://}
     - echo $QA_IP $QA_DOMAIN | tee -a /etc/hosts
     - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
+    - |
+      if [ "${QA_DOMAIN}" == "s2.test.stridespace.com" ]; then 
+        export TESTSPACE_TOKEN=s2-admin:s2-admin
+      fi
     - testspace config url "$QA_URL/s2technologies:testspace.test.ci"
     - testspace -v
   

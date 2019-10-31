@@ -18,6 +18,9 @@ jobs:
           export QA_DOMAIN=${QA_URL#http://}
           echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts
           curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+          if [ "${QA_DOMAIN}" == "s2.test.stridespace.com" ]; then 
+            export TESTSPACE_TOKEN=s2-admin:s2-admin
+          fi
           testspace config url "$QA_URL/s2technologies:testspace.test.ci"
           testspace -v
       - name: Get environment details
