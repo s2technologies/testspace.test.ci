@@ -5,5 +5,30 @@ job:
     refs:
       - gitlab
       - standalone
+  parallel: 4
 
-  script: echo ''
+  before_script:
+    - QA_IP_URL=$(< commit-trigger.txt)
+    - export QA_IP=${QA_IP_URL% *}
+    - export QA_URL=${QA_IP_URL#* }
+    - export QA_DOMAIN=${QA_URL#http://}
+    - echo $QA_IP $QA_DOMAIN | tee -a /etc/hosts
+    - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
+    - |
+      if [ "${QA_DOMAIN}" == "s2.test.stridespace.com" ]; then 
+        export TESTSPACE_TOKEN=s2-admin:s2-admin
+      fi
+    - testspace config url $QA_URL
+    - testspace -v
+    - printenv
+  
+  script:
+    - echo script
+  
+  after_script:
+    - |
+      for ((i=$CI_NODE_INDEX+1; i<=10; i=i+$CI_NODE_TOTAL))
+      do
+        export JOB=JOB-$i
+        ./ts-time-push.sh
+      done
