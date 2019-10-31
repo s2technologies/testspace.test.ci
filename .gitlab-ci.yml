@@ -1,0 +1,9 @@
+image: buildpack-deps:18.04-scm
+
+job:
+  only:
+    refs:
+      - gitlab
+      - standalone
+
+  script: echo ''
