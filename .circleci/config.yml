@@ -6,7 +6,6 @@ jobs:
     branches:
       only:
         - standalone
-        - circle
     steps:
       - checkout
       - run:

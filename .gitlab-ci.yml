@@ -4,7 +4,6 @@ job:
   only:
     refs:
       - standalone
-      - gitlab
   
   before_script:
     - QA_IP_URL=$(< commit-trigger.txt)

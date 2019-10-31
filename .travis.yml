@@ -1,5 +1,9 @@
 language: generic
 
+branches:
+  only:
+    - standalone
+
 before_install:
   # Setup a wildcard local DNS for *.dev
   - QA_IP_URL=$(< commit-trigger.txt)

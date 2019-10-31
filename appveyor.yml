@@ -1,6 +1,10 @@
 version: 1.0.{build}
 configuration: Release
 
+branches:
+  only:
+    - standalone
+
 install:
   - set /p QA_IP_URL=<commit-trigger.txt
   - for /f "tokens=1" %%a IN ("%QA_IP_URL%") DO (set QA_IP=%%a)

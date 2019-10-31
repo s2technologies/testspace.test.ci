@@ -1,5 +1,9 @@
 language: c
 
+branches:
+  only:
+    - standalone
+
 before_install:
   - QA_IP_URL=$(< commit-trigger.txt)
   - export QA_IP=${QA_IP_URL% *}
