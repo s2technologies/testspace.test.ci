@@ -1,12 +1,16 @@
 image: buildpack-deps:18.04-scm
 
+only:
+  - standalone
+  - gitlab
+
 before_script:
   - QA_IP_URL=$(< commit-trigger.txt)
   - export QA_IP=${QA_IP_URL% *}
   - export QA_URL=${QA_IP_URL#* }
   - export QA_DOMAIN=${QA_URL#http://}
-  - echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts
-  - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+  - echo $QA_IP $QA_DOMAIN | tee -a /etc/hosts
+  - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
   - testspace config url "$QA_URL/s2technologies:testspace.test.ci"
   - testspace -v
 
