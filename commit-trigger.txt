@@ -1,1 +1,1 @@
-52.23.210.19 s2.stridespace.com
+34.221.85.108 http://s2.test.stridespace.com
