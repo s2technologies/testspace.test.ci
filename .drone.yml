@@ -14,9 +14,8 @@ steps:
   image: s2technologies/testspace-client
   pull: always
   commands:
-    - echo $(cat commit-trigger.txt)
-    - echo $(< commit-trigger.txt)
     - QA_IP_URL=$(cat commit-trigger.txt)
+    - echo $QA_IP_URL
     - export QA_IP=${QA_IP_URL% *}
     - export QA_URL=${QA_IP_URL#* }
     - export QA_DOMAIN=${QA_URL#http://}
