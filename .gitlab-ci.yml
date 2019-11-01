@@ -27,7 +27,7 @@ job:
   
   after_script:
     - |
-      for ((i=$CI_NODE_INDEX+1; i<=10; i=i+$CI_NODE_TOTAL))
+      for ((i=$CI_NODE_INDEX; i<=10; i=i+$CI_NODE_TOTAL))
       do
         export JOB=JOB-$i
         ./ts-time-push.sh
