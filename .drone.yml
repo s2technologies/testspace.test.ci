@@ -1,4 +1,3 @@
----
 kind: pipeline
 type: docker
 name: standalone
@@ -7,9 +6,10 @@ steps:
 - name: 'echo'
   image: buildpack-deps:18.04-scm
   commands:
-    - printenv > printenv.txt
+    - printenv | tee printenv.txt
+  when:
+    branch: [ standalone ]
 
-steps:
 - name: 'publish'
   image: s2technologies/testspace-client
   pull: always
@@ -30,4 +30,7 @@ steps:
     TESTSPACE_TOKEN:
       from_secret: testspace_token
   when:
+    branch: [ standalone ]
     status: [ failure, success ]
+  depends_on:
+    - echo
