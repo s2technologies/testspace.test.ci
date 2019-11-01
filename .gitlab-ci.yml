@@ -23,4 +23,8 @@ job:
     - printenv > printenv.txt
   
   after_script:
+    - |
+      if [[ ${CI_COMMIT_MESSAGE} == *"s2.test.stridespace.com"* ]]; then 
+        export TESTSPACE_TOKEN=s2-admin:s2-admin
+      fi
     - testspace results.xml printenv.txt "standalone#gitlab.$CI_PIPELINE_ID" --repo=git --build-url=$CI_PIPELINE_URL
