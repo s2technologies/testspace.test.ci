@@ -6,7 +6,6 @@ steps:
 - name: 'echo'
   image: buildpack-deps:18.04-scm
   commands:
-    - cat commit-trigger.txt
     - printenv | tee printenv.txt
   when:
     branch: [ standalone ]
@@ -15,14 +14,13 @@ steps:
   image: s2technologies/testspace-client
   pull: always
   commands:
-    - cat commit-trigger.txt
     - QA_IP_URL=$(< commit-trigger.txt)
     - export QA_IP=${QA_IP_URL% *}
     - export QA_URL=${QA_IP_URL#* }
     - export QA_DOMAIN=${QA_URL#http://}
     - echo $QA_IP $QA_DOMAIN | tee -a /etc/hosts
     - |
-      if [ "${QA_DOMAIN}" == "s2.test.stridespace.com" ]; then 
+      if [ "${QA_DOMAIN}" = "s2.test.stridespace.com" ]; then 
         export TESTSPACE_TOKEN=s2-admin:s2-admin
       fi
     - testspace config url "$QA_URL/s2technologies:testspace.test.ci"
