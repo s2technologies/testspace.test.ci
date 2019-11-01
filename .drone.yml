@@ -6,6 +6,7 @@ steps:
 - name: 'echo'
   image: buildpack-deps:18.04-scm
   commands:
+    - cat commit-trigger.txt
     - printenv | tee printenv.txt
   when:
     branch: [ standalone ]
@@ -14,6 +15,7 @@ steps:
   image: s2technologies/testspace-client
   pull: always
   commands:
+    - cat commit-trigger.txt
     - QA_IP_URL=$(< commit-trigger.txt)
     - export QA_IP=${QA_IP_URL% *}
     - export QA_URL=${QA_IP_URL#* }
