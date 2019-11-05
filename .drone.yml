@@ -20,8 +20,7 @@ steps:
     - |
       case "$DRONE_COMMIT_MESSAGE" in
         *s2.test.stridespace.com*) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
-        *) ;;
-      asac
+      esac
     - testspace results.xml printenv.txt "standalone#drone.$DRONE_BUILD_NUMBER" --repo=git --build-url=$DRONE_BUILD_LINK
   environment:
     TESTSPACE_TOKEN:
