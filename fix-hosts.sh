@@ -14,6 +14,8 @@ if [ "$DOMAIN" = "s2.test.stridespace.com" ]; then
     echo "address=/$DOMAIN/$IP" | sudo tee -a /etc/dnsmasq.conf
     echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
     sudo service dnsmasq restart
+  elif [ $DRONE ]; then
+    echo $IP $DOMAIN | tee -a /etc/hosts
   else
     echo $IP $DOMAIN | sudo tee -a /etc/hosts
   fi
