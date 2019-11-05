@@ -1,3 +1,5 @@
+#!/bin/bash
+
 TIME_START=$(date +%s%3N)
 testspace result*.xml [ALL]result*.xml [$JOB]result*.xml
 TIME_END=$(date +%s%3N)
