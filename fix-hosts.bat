@@ -9,4 +9,4 @@ if "%DOMAIN%" == "s2.test.stridespace.com" (
   echo %IP% %DOMAIN%>>"%windir%\System32\drivers\etc\hosts"
 )
 
-echo %URL% > testspace-url
+echo %URL%> testspace-url
