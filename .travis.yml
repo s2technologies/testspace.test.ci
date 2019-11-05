@@ -9,7 +9,7 @@ before_install:
   - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
   - mkdir -p $HOME/bin
   - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-  - testspace config url $QA_URL
+  - testspace config url $TESTSPACE_URL
   - testspace -v
   - printenv
 
