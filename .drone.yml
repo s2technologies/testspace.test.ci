@@ -13,7 +13,7 @@ steps:
 - name: 'publish'
   image: s2technologies/testspace-client
   pull: always
-  shell: bash
+  entrypoint: ["/bin/bash"]
   commands:
     - QA_IP_URL=$(< commit-trigger.txt)
     - export QA_IP=${QA_IP_URL% *}
