@@ -13,19 +13,14 @@ steps:
 - name: 'publish'
   image: s2technologies/testspace-client
   pull: always
-  entrypoint: ["/bin/bash"]
   commands:
-    - QA_IP_URL=$(< commit-trigger.txt)
-    - export QA_IP=${QA_IP_URL% *}
-    - export QA_URL=${QA_IP_URL#* }
-    - export QA_DOMAIN=${QA_URL#http://}
-    - echo $QA_IP $QA_DOMAIN | tee -a /etc/hosts
-    - |
-      if [ "${QA_DOMAIN}" = "s2.test.stridespace.com" ]; then 
-        export TESTSPACE_TOKEN=s2-admin:s2-admin
-      fi
-    - testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+    - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
+    - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
     - testspace -v
+    - |
+      case $DRONE_COMMIT_MESSAGE in
+        *s2.test.stridespace.com*) export TESTSPACE_TOKEN=s2-admin:s2-admin
+      asac
     - testspace results.xml printenv.txt "standalone#drone.$DRONE_BUILD_NUMBER" --repo=git --build-url=$DRONE_BUILD_LINK
   environment:
     TESTSPACE_TOKEN:

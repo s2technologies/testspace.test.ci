@@ -11,13 +11,9 @@ jobs:
       - run:
           name: Install and configure Testspace client
           command: |
-            QA_IP_URL=$(< commit-trigger.txt)
-            export QA_IP=${QA_IP_URL% *}
-            export QA_URL=${QA_IP_URL#* }
-            export QA_DOMAIN=${QA_URL#http://}
-            echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts
+            ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
             curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
-            testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+            testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
             testspace -v
       - run:
           name: Get environment details

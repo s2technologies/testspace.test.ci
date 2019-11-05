@@ -5,27 +5,15 @@ branches:
     - standalone
 
 before_install:
-  - QA_IP_URL=$(< commit-trigger.txt)
-  - export QA_IP=${QA_IP_URL% *}
-  - export QA_URL=${QA_IP_URL#* }
-  - export QA_DOMAIN=${QA_URL#http://}
-  - echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts > /dev/null 2>&1
-  - sudo /etc/init.d/networking restart
+  - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
   - mkdir -p $HOME/bin
   - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-  - testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+  - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
   - testspace -v
-
-env:
- global:
-   - secure: P9m0YKqW/jEPu78lCs/f6Rr5/nhgq2/ZwuiVm35yJoUjCUitDm2h70hbe0a/hmpmcvgcR6aVcHx1FPiHHc3qWJ7k28M9lkEGbxT4QgFhpr/M806sn8YNg1MD4J3VArg+GOMUMVdBcGo4f1uK6R2tkrwi3aDiwWola60CxQvEtFjxpsTbS0pT7qy9KIARZggIrIFjJFaK9F2sA6jD/MbvG2hAAvDGKSYsQxCZSiIhO1Eo6NMmUCOmPy4urf7GvdzGZcSjdhntNGYioM+3BXIKpdBBBpomSA2d+ejJQAufezQI5crVcGtjCF1/c/AEN6/7MfBdc4p0jg18jz4p+dyERw==
 
 build:
   ci:
    - printenv > printenv.txt
 
-  on_success:
-   - testspace results.xml printenv.txt "standalone#shippable.$SHIPPABLE_BUILD_NUMBER" --repo=git --build-url=$BUILD_URL
-
-  on_failure:
+  always:
    - testspace results.xml printenv.txt "standalone#shippable.$SHIPPABLE_BUILD_NUMBER" --repo=git --build-url=$BUILD_URL

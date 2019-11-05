@@ -11,13 +11,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install and configure Testspace client
         run: |
-          QA_IP_URL=$(< commit-trigger.txt)
-          export QA_IP=${QA_IP_URL% *}
-          export QA_URL=${QA_IP_URL#* }
-          export QA_DOMAIN=${QA_URL#http://}
-          echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts
+          ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
           curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
-          testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+          testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
           testspace -v
       - name: Get environment details
         run: printenv > printenv.txt
@@ -26,6 +22,10 @@ jobs:
           GITHUB_CHECK_SUITE_ID=`curl -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' -H 'Accept: application/vnd.github.antiope-preview+json' -s https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/check-suites?app_id=15368 | jq -r '.check_suites[0].id'`
           build_url="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks?check_suite_id=${GITHUB_CHECK_SUITE_ID}";
           echo $build_url
+          CI_COMMIT_MESSAGE=`jq -r "commits[-1][message]" ${GITHUB_EVENT_PATH}`
+          if [[ ${CI_COMMIT_MESSAGE} == *"s2.test.stridespace.com"* ]]; then 
+            export TESTSPACE_TOKEN=s2-admin:s2-admin
+          fi
           testspace results.xml printenv.txt "standalone#github.$GITHUB_CHECK_SUITE_ID" --repo=git --build-url=$build_url
         if: always()
         env: # temporary until Actions "build-bot" server support provided

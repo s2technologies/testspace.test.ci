@@ -6,15 +6,10 @@ branches:
     - standalone
 
 install:
-  - set /p QA_IP_URL=<commit-trigger.txt
-  - for /f "tokens=1" %%a IN ("%QA_IP_URL%") DO (set QA_IP=%%a)
-  - for /f "tokens=2" %%a IN ("%QA_IP_URL%") DO (set QA_URL=%%a)
-  - set QA_DOMAIN=%QA_URL:http://=%
-  - echo. >> "%windir%\System32\drivers\etc\hosts"
-  - ECHO %QA_IP% %QA_DOMAIN%>>"%windir%\System32\drivers\etc\hosts"
+  - call fix-hosts.bat && set /p TESTSPACE_URL=<testspace-url
   - appveyor DownloadFile https://testspace-client.s3.amazonaws.com/testspace-windows-dev.zip
   - 7z x -y testspace-windows-dev.zip
-  - testspace config url "%QA_URL%/s2technologies:testspace.test.ci"
+  - testspace config url "%TESTSPACE_URL%/s2technologies:testspace.test.ci"
   - testspace -v
 
 # to run your custom scripts instead of automatic MSBuild

@@ -10,13 +10,9 @@ jobs:
     vmImage: 'macOS-10.13'
   steps:
   - script: |
-      QA_IP_URL=$(< commit-trigger.txt)
-      export QA_IP=${QA_IP_URL% *}
-      export QA_URL=${QA_IP_URL#* }
-      export QA_DOMAIN=${QA_URL#http://}
-      echo $QA_IP $QA_DOMAIN | sudo tee -a /etc/hosts
+      ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
       curl -s https://testspace-client.s3.amazonaws.com/testspace-darwin-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
-      testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+      testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
       testspace -v
     displayName: 'setup'
   - script: |

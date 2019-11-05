@@ -5,20 +5,10 @@ branches:
     - standalone
 
 before_install:
-  # Setup a wildcard local DNS for *.dev
-  - QA_IP_URL=$(< commit-trigger.txt)
-  - export QA_IP=${QA_IP_URL% *}
-  - export QA_URL=${QA_IP_URL#* }
-  - export QA_DOMAIN=${QA_URL#http://}
-  - sudo apt-get install -qq -y --force-yes dnsmasq
-  - echo "listen-address=127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
-  - echo "bind-interfaces" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
-  - echo "address=/$QA_DOMAIN/$QA_IP" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
-  - echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null 2>&1
-  - sudo service dnsmasq restart
+  - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
   - mkdir -p $HOME/bin
   - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-  - testspace config url "$QA_URL/s2technologies:testspace.test.ci"
+  - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
   - testspace -v
 
 script:
