@@ -1,1 +1,1 @@
-54.189.196.170 http://s2.test.stridespace.com
+52.33.99.242 http://s2.test.stridespace.com
