@@ -11,9 +11,9 @@ job:
     - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
     - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
     - |
-      if [ "${QA_DOMAIN}" == "s2.test.stridespace.com" ]; then 
-        export TESTSPACE_TOKEN=s2-admin:s2-admin
-      fi
+      case "$CI_COMMIT_MESSAGE" in
+        *s2.test.stridespace.com*) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
+      esac
     - testspace config url $TESTSPACE_URL
     - testspace -v
     - printenv
