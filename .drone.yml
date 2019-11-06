@@ -11,10 +11,10 @@ steps:
     branch: [ standalone ]
 
 - name: 'publish'
-  image: s2technologies/testspace-client
-  pull: always
+  image: buildpack-deps:18.04-scm
   commands:
     - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
+    - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
     - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
     - testspace -v
     - |
@@ -22,7 +22,7 @@ steps:
         *s2.test.stridespace.com*) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
       esac
     - testspace results.xml printenv.txt "standalone#drone.$DRONE_BUILD_NUMBER" --repo=git --build-url=$DRONE_BUILD_LINK
-  environment:
+  environment: # temporary until Drone "build-bot" server support provided
     TESTSPACE_TOKEN:
       from_secret: testspace_token
   when:
