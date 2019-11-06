@@ -22,7 +22,8 @@ jobs:
           GITHUB_CHECK_SUITE_ID=`curl -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' -H 'Accept: application/vnd.github.antiope-preview+json' -s https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/check-suites?app_id=15368 | jq -r '.check_suites[0].id'`
           build_url="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks?check_suite_id=${GITHUB_CHECK_SUITE_ID}";
           echo $build_url
-          echo $CI_COMMIT_MESSAGE
+          echo "message: $CI_COMMIT_MESSAGE"
+          echo "message josn: $CI_COMMIT_MESSAGE_JSON"
           CI_COMMIT_MESSAGE=`jq -r ".commits[-1].message" ${GITHUB_EVENT_PATH}`
           case "$CI_COMMIT_MESSAGE" in
             *s2.test.stridespace.com*) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
@@ -31,4 +32,5 @@ jobs:
         if: always()
         env: # temporary until GH Actions "build-bot" server support provided
           TESTSPACE_TOKEN: ${{ secrets.TESTSPACE_TOKEN }}
-          CI_COMMIT_MESSAGE: ${{ github.event.commits[-1].message }}
+          CI_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          CI_COMMIT_MESSAGE_JSON: ${{ toJson(github.event.head_commit.message) }}
