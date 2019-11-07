@@ -17,9 +17,11 @@ job:
     - testspace config url $TESTSPACE_URL
     - testspace -v
     - printenv
+    - cat /etc/hosts
   
   script:
     - echo script
+    - cat /etc/hosts
   
   after_script:
     - |
