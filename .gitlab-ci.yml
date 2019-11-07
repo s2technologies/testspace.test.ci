@@ -26,7 +26,7 @@ job:
       case "$CI_COMMIT_MESSAGE" in
         *s2.test.stridespace.com*) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
       esac
-    - printenv
+    - cat /etc/hosts
     - |
       for ((i=$CI_NODE_INDEX; i<=10; i=i+$CI_NODE_TOTAL))
       do
