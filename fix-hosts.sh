@@ -6,8 +6,8 @@ IP=${IP_URL% *}
 URL=${IP_URL#* }
 DOMAIN=${URL#http://}
 test "$IP" -a "$DOMAIN"
-#if [ "$DOMAIN" = "s2.test.stridespace.com" ]; then
+if [ "$DOMAIN" = "s2.test.stridespace.com" ]; then
   echo $IP $DOMAIN | tee -a /etc/hosts
-#fi
+fi
 
 echo $URL > testspace-url

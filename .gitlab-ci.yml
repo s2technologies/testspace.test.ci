@@ -17,18 +17,16 @@ job:
     - testspace config url $TESTSPACE_URL
     - testspace -v
     - printenv
-    - cat /etc/hosts
   
   script:
     - echo script
-    - cat /etc/hosts
   
   after_script:
+    - ./fix-hosts.sh # needed as this is separate context - see https://docs.gitlab.com/ee/ci/yaml/README.html#before_script-and-after_script
     - |
       case "$CI_COMMIT_MESSAGE" in
         *s2.test.stridespace.com*) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
       esac
-    - cat /etc/hosts
     - |
       for ((i=$CI_NODE_INDEX; i<=10; i=i+$CI_NODE_TOTAL))
       do
