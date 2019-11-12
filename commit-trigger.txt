@@ -1,1 +1,1 @@
-52.12.103.66 http://s2.test.stridespace.com
+34.211.93.14 http://s2.test.stridespace.com
