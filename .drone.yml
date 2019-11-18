@@ -17,7 +17,7 @@ publish: &publish
     - printenv
     - |
       i=$CI_NODE_INDEX
-      while [ "$i" -ne 10 ]
+      while [ "$i" -le 10 ]
       do
         export JOB=JOB-$i
         ./ts-time-push.sh
@@ -25,9 +25,6 @@ publish: &publish
       done
   when:
     status: [ failure, success ]
-  environment:
-    CI_NODE_INDEX: ${DRONE_STEP_NAME##publish }
-    CI_NODE_TOTAL: 4
 
 steps:
 - name: 'echo'
@@ -37,20 +34,32 @@ steps:
 
 - name: 'publish 1'
   <<: *publish
+  environment:
+    CI_NODE_INDEX: 1
+    CI_NODE_TOTAL: 4
   depends_on:
     - echo
 
 - name: 'publish 2'
   <<: *publish
+  environment:
+    CI_NODE_INDEX: 2
+    CI_NODE_TOTAL: 4
   depends_on:
     - echo
 
 - name: 'publish 3'
   <<: *publish
+  environment:
+    CI_NODE_INDEX: 3
+    CI_NODE_TOTAL: 4
   depends_on:
     - echo
 
 - name: 'publish 4'
   <<: *publish
+  environment:
+    CI_NODE_INDEX: 4
+    CI_NODE_TOTAL: 4
   depends_on:
     - echo
