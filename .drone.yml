@@ -12,7 +12,7 @@ publish: &publish
   commands:
     - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
     - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
-    - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
+    - testspace config url $TESTSPACE_URL
     - testspace -v
     - printenv
     - |
@@ -33,7 +33,7 @@ steps:
 - name: 'echo'
   image: buildpack-deps:18.04-scm
   commands:
-    - printenv
+    - echo step
 
 - name: 'publish 1'
   <<: *publish
