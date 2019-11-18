@@ -1,0 +1,56 @@
+kind: pipeline
+type: docker
+name: default
+
+trigger:
+  branch:
+    - drone
+    - standalone
+
+publish: &publish
+  image: buildpack-deps:18.04-scm
+  commands:
+    - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
+    - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
+    - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
+    - testspace -v
+    - printenv
+    - |
+      i=$CI_NODE_INDEX
+      while [ "$i" -ne 10 ]
+      do
+        export JOB=JOB-$i
+        ./ts-time-push.sh
+        i=$((i+$CI_NODE_TOTAL))
+      done
+  when:
+    status: [ failure, success ]
+  environment:
+    CI_NODE_INDEX: ${DRONE_STEP_NAME##publish }
+    CI_NODE_TOTAL: 4
+
+steps:
+- name: 'echo'
+  image: buildpack-deps:18.04-scm
+  commands:
+    - printenv
+
+- name: 'publish 1'
+  <<: *publish
+  depends_on:
+    - echo
+
+- name: 'publish 2'
+  <<: *publish
+  depends_on:
+    - echo
+
+- name: 'publish 3'
+  <<: *publish
+  depends_on:
+    - echo
+
+- name: 'publish 4'
+  <<: *publish
+  depends_on:
+    - echo
