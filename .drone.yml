@@ -2,13 +2,15 @@ kind: pipeline
 type: docker
 name: default
 
+trigger:
+  branch:
+    - standalone
+
 steps:
 - name: 'echo'
   image: buildpack-deps:18.04-scm
   commands:
     - printenv | tee printenv.txt
-  when:
-    branch: [ standalone ]
 
 - name: 'publish'
   image: buildpack-deps:18.04-scm
@@ -19,7 +21,6 @@ steps:
     - testspace -v
     - testspace results.xml printenv.txt "standalone#drone.$DRONE_BUILD_NUMBER" --repo=git --build-url=$DRONE_BUILD_LINK
   when:
-    branch: [ standalone ]
     status: [ failure, success ]
   depends_on:
     - echo
