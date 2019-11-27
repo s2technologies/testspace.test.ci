@@ -1,1 +1,1 @@
-52.13.12.183 http://s2.test.stridespace.com
+18.236.188.60 http://s2.test.stridespace.com
