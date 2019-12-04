@@ -1,1 +1,1 @@
-52.12.123.180 http://s2.test.stridespace.com
+34.212.204.105 http://s2.test.stridespace.com
