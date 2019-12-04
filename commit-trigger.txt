@@ -1,1 +1,1 @@
-54.202.121.15 http://s2.test.stridespace.com
+52.12.123.180 http://s2.test.stridespace.com
