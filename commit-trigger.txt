@@ -1,1 +1,1 @@
-54.190.56.71 http://s2.test.stridespace.com
+52.23.210.19 https://63f40127a62b3c9938c10396ead2e64d491771d0:@s2.stridespace.com
