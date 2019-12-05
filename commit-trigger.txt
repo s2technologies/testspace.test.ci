@@ -1,1 +1,1 @@
-35.163.182.81 http://s2.test.stridespace.com
+1.2.3.4 s2.stridespace.com
