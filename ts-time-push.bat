@@ -12,16 +12,16 @@ for /f "tokens=*" %%A in ("check-size.xml") do set CONTENT_SIZE=%%~zA
 for /f %%A in ('dir result*.xml ^| find "File(s)"') do set NUM_FILES=%%A
 
 rem Log file
-echo TIMING STATS: > timing.log
-echo   Number of files: %NUM_FILES% >> timing.log
-echo   Size of content(files X 3): %CONTENT_SIZE% >> timing.log
-echo   %JOB% Upload time in milliseconds: %TIME_DIFF% >> timing.log
+echo TIMING STATS: > %TEMP%\timing.log
+echo   Number of files: %NUM_FILES% >> %TEMP%\timing.log
+echo   Size of content(files X 3): %CONTENT_SIZE% >> %TEMP%\timing.log
+echo   %JOB% Upload time in milliseconds: %TIME_DIFF% >> %TEMP%\timing.log
 
 rem CSV file
-echo %JOB% Upload time, %TIME_DIFF% > timing.csv
-echo %JOB% Content size, %CONTENT_SIZE% >> timing.csv
+echo %JOB% Upload time, %TIME_DIFF% > %TEMP%\timing.csv
+echo %JOB% Content size, %CONTENT_SIZE% >> %TEMP%\timing.csv
 
-testspace [%JOB%]"timing.log{timing.csv:Tracking Time for %JOB%}"
+testspace [%JOB%]"%TEMP%\timing.log{%TEMP%\timing.csv:Tracking Time for %JOB%}"
 
 goto:eof
 
