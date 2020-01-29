@@ -19,15 +19,14 @@ jobs:
         run: printenv > printenv.txt
       - name: Push environment details to result
         run: |
-          GITHUB_CHECK_SUITE_ID=`curl -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' -H 'Accept: application/vnd.github.antiope-preview+json' -s https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/check-suites?app_id=15368 | jq -r '.check_suites[0].id'`
-          build_url="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks?check_suite_id=${GITHUB_CHECK_SUITE_ID}";
+          build_url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}";
           echo $build_url
           # CI_COMMIT_MESSAGE=`jq -r ".commits[-1].message" ${GITHUB_EVENT_PATH}`
           case "$CI_COMMIT_MESSAGE" in
             *s2.stridespace.com*) ;;
             *) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
           esac
-          testspace results.xml printenv.txt "standalone#github.$GITHUB_CHECK_SUITE_ID" --repo=git --build-url=$build_url
+          testspace results.xml printenv.txt "standalone#github.$GITHUB_RUN_NUMBER" --repo=git --build-url=$build_url
         if: always()
         env: # temporary until GH Actions "build-bot" server support provided
           TESTSPACE_TOKEN: ${{ secrets.TESTSPACE_TOKEN }}
