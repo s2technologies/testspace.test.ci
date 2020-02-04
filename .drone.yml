@@ -1,0 +1,13 @@
+kind: pipeline
+type: docker
+name: default
+
+trigger:
+  branch:
+    - drone
+    - standalone
+
+steps:
+- image: buildpack-deps:18.04-scm
+  commands:
+    - echo ''
