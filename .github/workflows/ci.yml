@@ -1,0 +1,30 @@
+name: Default
+on:
+  push:
+    branches:
+      - github
+      - standalone
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        number: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup
+        run: |
+          ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
+          curl -s https://testspace-client.s3.amazonaws.com/testspace-darwin-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+          testspace config url $TESTSPACE_URL
+          testspace -v
+          printenv
+      - name: Echo
+        run: echo ci script
+      - name: Publish
+        run: |
+          ./ts-time-push.sh
+        env:
+          JOB: "JOB-${{ matrix.number }}"
+        if: always()
