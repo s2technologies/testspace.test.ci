@@ -1,0 +1,6 @@
+name: Default
+on:
+  push:
+    branches:
+      - github
+      - standalone
