@@ -4,3 +4,7 @@ on:
     branches:
       - github
       - standalone
+
+jobs:
+  build:
+    runs-on: macos-latest
