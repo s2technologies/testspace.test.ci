@@ -30,7 +30,7 @@ jobs:
         JOB: JOB-10
 
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'macOS-latest'
   steps:
   - script: |
       ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
