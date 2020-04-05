@@ -1,1 +1,1 @@
-52.23.210.19 http://s2.stridespace.com
+52.23.210.19 https://s2.stridespace.com
