@@ -16,9 +16,4 @@ job:
   
   after_script:
     - ./fix-hosts.sh # needed as this is separate context - see https://docs.gitlab.com/ee/ci/yaml/README.html#before_script-and-after_script
-    - |
-      case "$CI_COMMIT_MESSAGE" in
-        *s2.stridespace.com*) ;;
-        *) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
-      esac
     - testspace results.xml printenv.txt "standalone#gitlab.$CI_PIPELINE_ID" --repo=git --build-url=$CI_PIPELINE_URL
