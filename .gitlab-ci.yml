@@ -10,11 +10,6 @@ job:
   before_script:
     - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
     - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
-    - |
-      case "$CI_COMMIT_MESSAGE" in
-        *s2.stridespace.com*) ;;
-        *) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
-      esac
     - testspace config url $TESTSPACE_URL
     - testspace -v
     - printenv
@@ -24,11 +19,6 @@ job:
   
   after_script:
     - ./fix-hosts.sh # needed as this is separate context - see https://docs.gitlab.com/ee/ci/yaml/README.html#before_script-and-after_script
-    - |
-      case "$CI_COMMIT_MESSAGE" in
-        *s2.stridespace.com*) ;;
-        *) export TESTSPACE_TOKEN=s2-admin:s2-admin ;;
-      esac
     - |
       for ((i=$CI_NODE_INDEX; i<=10; i=i+$CI_NODE_TOTAL))
       do
