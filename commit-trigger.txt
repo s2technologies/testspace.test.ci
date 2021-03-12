@@ -1,1 +1,1 @@
-35.162.123.53 http://s2.dd5235eb-8882-4de3-9738-29ec8fbc68fd.stridespace.com
+34.213.0.166 http://s2.f16bff58-9a1d-4c65-a55d-8ee3b9507df5.stridespace.com
