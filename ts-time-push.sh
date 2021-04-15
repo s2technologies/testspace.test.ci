@@ -1,12 +1,12 @@
 #!/bin/bash
 
-TIME_START=$(date +%s000)
+TIME_START=$(date +%s%3N)
 testspace result*.xml [ALL]result*.xml [$JOB]result*.xml
-TIME_END=$(date +%s000)
+TIME_END=$(date +%s%3N)
 TIME_DIFF=$(( $TIME_END - $TIME_START ))
 
 testspace results.xml [ALL]results.xml [$JOB]results.xml file://$PWD/check-size.xml
-CONTENT_SIZE=$(stat -f  '%z' check-size.xml)
+CONTENT_SIZE=$(stat -c  '%s' check-size.xml)
 
 NUM_FILES=$(ls -l result*.xml | grep -v ^d | wc -l )
 
