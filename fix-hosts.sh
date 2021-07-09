@@ -7,7 +7,7 @@ URL=${IP_URL#* }
 DOMAIN=${URL#http://}
 test "$IP" -a "$DOMAIN"
 if [ "$DOMAIN" != "s2.stridespace.com" ]; then
-  if [ "$DRONE" -o "$GITLAB_CI" ]; then
+  if [ "$DRONE" -o "$GITLAB_CI" -o "$CF_ACCOUNT" ]; then
     echo $IP $DOMAIN | tee -a /etc/hosts
   else
     echo $IP $DOMAIN | sudo tee -a /etc/hosts
