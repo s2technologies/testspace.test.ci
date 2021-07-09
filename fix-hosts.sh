@@ -7,7 +7,7 @@ URL=${IP_URL#* }
 DOMAIN=${URL#http://}
 test "$IP" -a "$DOMAIN"
 if [ "$DOMAIN" != "s2.stridespace.com" ]; then
-  echo $IP $DOMAIN | sudo tee -a /etc/hosts
+  echo $IP $DOMAIN | tee -a /etc/hosts
 fi
 
 echo $URL > testspace-url
