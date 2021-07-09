@@ -1,0 +1,16 @@
+version: "1.0"
+stages:
+  - "dummy"
+
+steps:
+  dummy:
+    type: freestyle
+    image: "buildpack-deps:18.04-scm"
+    commands:
+      - echo ''
+    stage: "dummy"
+    when:
+      branch:
+        only:
+          - codefresh
+          - standalone
