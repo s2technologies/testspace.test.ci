@@ -1,0 +1,48 @@
+# More examples of Codefresh YAML can be found at
+# https://codefresh.io/docs/docs/yaml-examples/examples/
+
+version: "1.0"
+# Stages can help you organize your steps in stages
+stages:
+  - "clone"
+  - "setup"
+  - "test"
+  - "publish"
+
+steps:
+  clone:
+    title: "Cloning repository"
+    type: "git-clone"
+    repo: "s2technologies/testspace.test.ci"
+    # CF_BRANCH value is auto set when pipeline is triggered
+    # Learn more at codefresh.io/docs/docs/codefresh-yaml/variables/
+    revision: "${{CF_BRANCH}}"
+    git: "github"
+    stage: "clone"
+
+  setup:
+    type: "freestyle" # Run any command
+    image: "buildpack-deps:18.04-scm" # The image in which command will be executed
+    working_directory: "${{clone}}" # Running command where code cloned
+    commands:
+      - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
+      - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
+      - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
+      - testspace -v
+    stage: "setup"
+
+  test:
+    type: "freestyle" # Run any command
+    image: "buildpack-deps:18.04-scm" # The image in which command will be executed
+    working_directory: "${{clone}}" # Running command where code cloned
+    commands:
+      - "printenv | tee printenv.txt"
+    stage: "test"
+
+  publish:
+    type: "freestyle" # Run any command
+    image: buildpack-deps:18.04-scm # The image in which command will be executed
+    working_directory: "${{clone}}" # Running command where code cloned
+    commands:
+      - testspace results.xml printenv.txt "standalone#drone.$CF_BUILD_ID" --repo=git --build-url=$CF_BUILD_URL
+    stage: "publish"
