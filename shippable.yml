@@ -1,34 +1,6 @@
 language: c
 
-before_install:
-  - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
-  - mkdir -p $HOME/bin
-  - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C $HOME/bin
-  - testspace config url $TESTSPACE_URL
-  - testspace -v
-  - printenv
-
 branches:
   only:
     - standalone
     - shippable
-
-env:
-  matrix:
-    - JOB=JOB-1
-    - JOB=JOB-2
-    - JOB=JOB-3
-    - JOB=JOB-4
-    - JOB=JOB-5
-    - JOB=JOB-6
-    - JOB=JOB-7
-    - JOB=JOB-8
-    - JOB=JOB-9
-    - JOB=JOB-10
-
-build:
-  ci:
-   - echo ci script
-
-  always:
-   - ./ts-time-push.sh 

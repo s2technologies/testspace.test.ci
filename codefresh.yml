@@ -1,0 +1,53 @@
+# More examples of Codefresh YAML can be found at
+# https://codefresh.io/docs/docs/yaml-examples/examples/
+
+version: "1.0"
+# Stages can help you organize your steps in stages
+stages:
+  - "clone"
+  - "test"
+  - "publish"
+
+steps:
+  clone:
+    title: "Cloning repository"
+    type: "git-clone"
+    repo: "s2technologies/testspace.test.ci"
+    # CF_BRANCH value is auto set when pipeline is triggered
+    # Learn more at codefresh.io/docs/docs/codefresh-yaml/variables/
+    revision: "${{CF_BRANCH}}"
+    git: "github"
+    stage: "clone"
+
+  test:
+    type: "freestyle" # Run any command
+    image: "buildpack-deps:18.04-scm" # The image in which command will be executed
+    working_directory: "${{clone}}" # Running command where code cloned
+    commands:
+      - echo ci script
+    stage: "test"
+
+  publish:
+    type: "freestyle" # Run any command
+    image: buildpack-deps:18.04-scm # The image in which command will be executed
+    working_directory: "${{clone}}" # Running command where code cloned
+    commands:
+      - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
+      - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
+      - testspace config url $TESTSPACE_URL
+      - testspace -v
+      - printenv
+      - ./ts-time-push.sh
+    stage: "publish"
+    matrix:
+      environment:
+        - [JOB=JOB-1]
+        - [JOB=JOB-2]
+        - [JOB=JOB-3]
+        - [JOB=JOB-4]
+        - [JOB=JOB-5]
+        - [JOB=JOB-6]
+        - [JOB=JOB-7]
+        - [JOB=JOB-8]
+        - [JOB=JOB-9]
+        - [JOB=JOB-10]
