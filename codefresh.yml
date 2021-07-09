@@ -36,5 +36,5 @@ steps:
       - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
       - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
       - testspace -v
-      - testspace results.xml printenv.txt "standalone#drone.$CF_BUILD_ID" --repo=git --build-url=$CF_BUILD_URL
+      - testspace results.xml printenv.txt "standalone#codefresh.$CF_BUILD_ID" --repo=git --build-url=$CF_BUILD_URL
     stage: "publish"
