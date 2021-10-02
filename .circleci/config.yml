@@ -20,10 +20,7 @@ jobs:
           command: |
             printenv > printenv.txt
             testspace config
-            ls -lsa $HOME
-            cat $HOME/project/.testspace
-            ls -lsa $CIRCLE_WORKING_DIRECTORY
-            cat $CIRCLE_WORKING_DIRECTORY/.testspace
+            cat ${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}/.testspace # https://discuss.circleci.com/t/circle-working-directory-doesnt-expand/17007/4
       - run:
           name: Push environment details to result
           command: testspace results.xml printenv.txt "standalone#circle.$CIRCLE_BUILD_NUM" --repo=git --build-url=$CIRCLE_BUILD_URL
