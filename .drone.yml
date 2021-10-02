@@ -7,18 +7,23 @@ trigger:
     - standalone
 
 steps:
-- name: 'echo'
-  image: buildpack-deps:18.04-scm
-  commands:
-    - printenv | tee printenv.txt
-
-- name: 'publish'
+- name: 'before'
   image: buildpack-deps:18.04-scm
   commands:
     - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
     - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
     - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
     - testspace -v
+
+- name: 'echo'
+  image: buildpack-deps:18.04-scm
+  commands:
+    - printenv | tee printenv.txt
+    - testspace config
+
+- name: 'publish'
+  image: buildpack-deps:18.04-scm
+  commands:
     - testspace results.xml printenv.txt "standalone#drone.$DRONE_BUILD_NUMBER" --repo=git --build-url=$DRONE_BUILD_LINK
   when:
     status: [ failure, success ]

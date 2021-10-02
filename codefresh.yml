@@ -19,12 +19,24 @@ steps:
     git: "github"
     stage: "clone"
 
+  before:
+    type: "freestyle" # Run any command
+    image: "buildpack-deps:18.04-scm" # The image in which command will be executed
+    working_directory: "${{clone}}" # Running command where code cloned
+    commands:
+      - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
+      - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
+      - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
+      - testspace -v
+    stage: "before"
+
   test:
     type: "freestyle" # Run any command
     image: "buildpack-deps:18.04-scm" # The image in which command will be executed
     working_directory: "${{clone}}" # Running command where code cloned
     commands:
       - "printenv | tee printenv.txt"
+      - testspace config
     stage: "test"
 
   publish:
@@ -32,9 +44,5 @@ steps:
     image: buildpack-deps:18.04-scm # The image in which command will be executed
     working_directory: "${{clone}}" # Running command where code cloned
     commands:
-      - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
-      - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
-      - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
-      - testspace -v
       - testspace results.xml printenv.txt "standalone#codefresh.$CF_BUILD_ID" --repo=git --build-url=$CF_BUILD_URL
     stage: "publish"

@@ -16,10 +16,12 @@ jobs:
           testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
           testspace -v
       - name: Get environment details
-        run: printenv > printenv.txt
+        run: |
+          printenv > printenv.txt
+          testspace config
       - name: Push environment details to result
         run: |
-          build_url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}";
+          build_url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           echo $build_url
           testspace results.xml printenv.txt "standalone#github.$GITHUB_RUN_NUMBER" --repo=git --build-url=$build_url
         if: always()

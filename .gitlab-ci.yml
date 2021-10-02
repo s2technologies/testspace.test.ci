@@ -4,16 +4,17 @@ job:
   only:
     refs:
       - standalone
-  
+
   before_script:
     - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
     - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
     - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
     - testspace -v
-  
+
   script:
     - printenv > printenv.txt
-  
+    - testspace config
+
   after_script:
-    - ./fix-hosts.sh # needed as this is separate context - see https://docs.gitlab.com/ee/ci/yaml/README.html#before_script-and-after_script
+    - ./fix-hosts.sh # needed as this is separate context - see https://docs.gitlab.com/ee/ci/yaml/index.html#after_script
     - testspace results.xml printenv.txt "standalone#gitlab.$CI_PIPELINE_ID" --repo=git --build-url=$CI_PIPELINE_URL

@@ -14,6 +14,7 @@ before_install:
 build:
   ci:
    - printenv > printenv.txt
+   - testspace config
 
   always:
    - testspace results.xml printenv.txt "standalone#shippable.$SHIPPABLE_BUILD_NUMBER" --repo=git --build-url=$BUILD_URL

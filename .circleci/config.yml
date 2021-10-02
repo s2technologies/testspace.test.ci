@@ -17,7 +17,9 @@ jobs:
             testspace -v
       - run:
           name: Get environment details
-          command: printenv > printenv.txt
+          command: |
+            printenv > printenv.txt
+            testspace config
       - run:
           name: Push environment details to result
           command: testspace results.xml printenv.txt "standalone#circle.$CIRCLE_BUILD_NUM" --repo=git --build-url=$CIRCLE_BUILD_URL

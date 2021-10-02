@@ -17,6 +17,7 @@ jobs:
     displayName: 'setup'
   - script: |
       printenv > printenv.txt
+      testspace config
     displayName: 'echo'
   - script: |
       build_url="${SYSTEM_TEAMFOUNDATIONCOLLECTIONURI}${SYSTEM_TEAMPROJECTID}/_build/results?buildId=${BUILD_BUILDID}"

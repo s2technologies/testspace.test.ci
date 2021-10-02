@@ -19,6 +19,9 @@ build_script:
 # to run your custom scripts instead of automatic tests
 test_script:
   - set > printenv.txt
+  - testspace config
 
 after_test:
-  - testspace results.xml printenv.txt "standalone#appveyor.%APPVEYOR_BUILD_NUMBER%" --repo=git --build-url="%APPVEYOR_URL%/project/%APPVEYOR_ACCOUNT_NAME%/%APPVEYOR_PROJECT_SLUG%/builds/%APPVEYOR_BUILD_ID%"
+  - set build_url="%APPVEYOR_URL%/project/%APPVEYOR_ACCOUNT_NAME%/%APPVEYOR_PROJECT_SLUG%/builds/%APPVEYOR_BUILD_ID%"
+  - echo %build_url%
+  - testspace results.xml printenv.txt "standalone#appveyor.%APPVEYOR_BUILD_NUMBER%" --repo=git --build-url="%build_url%"

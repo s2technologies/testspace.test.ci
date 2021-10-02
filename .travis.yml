@@ -13,6 +13,7 @@ before_install:
 
 script:
   - printenv > printenv.txt
- 
+  - testspace config
+
 after_script:
   - testspace results.xml printenv.txt "standalone#travis.$TRAVIS_BUILD_NUMBER" --repo=git --build-url=$TRAVIS_BUILD_WEB_URL
