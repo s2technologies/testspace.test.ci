@@ -14,6 +14,7 @@ job:
   script:
     - printenv > printenv.txt
     - testspace config
+    - cat $CI_PROJECT_DIR/.testspace
 
   after_script:
     - ./fix-hosts.sh # needed as this is separate context - see https://docs.gitlab.com/ee/ci/yaml/index.html#after_script

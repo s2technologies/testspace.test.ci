@@ -18,6 +18,7 @@ jobs:
   - script: |
       printenv > printenv.txt
       testspace config
+      cat $PIPELINE_WORKSPACE/.testspace
     displayName: 'echo'
   - script: |
       build_url="${SYSTEM_TEAMFOUNDATIONCOLLECTIONURI}${SYSTEM_TEAMPROJECTID}/_build/results?buildId=${BUILD_BUILDID}"

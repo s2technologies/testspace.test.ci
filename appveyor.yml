@@ -20,6 +20,7 @@ build_script:
 test_script:
   - set > printenv.txt
   - testspace config
+  - print "%APPVEYOR_BUILD_FOLDER%/.testspace"
 
 after_test:
   - set build_url="%APPVEYOR_URL%/project/%APPVEYOR_ACCOUNT_NAME%/%APPVEYOR_PROJECT_SLUG%/builds/%APPVEYOR_BUILD_ID%"

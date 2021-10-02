@@ -19,6 +19,7 @@ jobs:
         run: |
           printenv > printenv.txt
           testspace config
+          cat $RUNNER_WORKSPACE/.testspace
       - name: Push environment details to result
         run: |
           build_url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"

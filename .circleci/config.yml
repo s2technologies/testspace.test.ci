@@ -20,6 +20,7 @@ jobs:
           command: |
             printenv > printenv.txt
             testspace config
+            cat $CIRCLE_WORKING_DIRECTORY/.testspace
       - run:
           name: Push environment details to result
           command: testspace results.xml printenv.txt "standalone#circle.$CIRCLE_BUILD_NUM" --repo=git --build-url=$CIRCLE_BUILD_URL
