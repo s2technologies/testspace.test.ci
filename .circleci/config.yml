@@ -20,6 +20,8 @@ jobs:
           command: |
             printenv > printenv.txt
             testspace config
+            ls -lsa $CIRCLE_WORKING_DIRECTORY
+            ls -lsa $HOME
             cat $CIRCLE_WORKING_DIRECTORY/.testspace
       - run:
           name: Push environment details to result

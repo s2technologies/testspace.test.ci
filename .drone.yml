@@ -7,10 +7,6 @@ trigger:
     - standalone
 
 steps:
-- name: 'before'
-  image: buildpack-deps:18.04-scm
-  commands:
-
 - name: 'echo'
   image: buildpack-deps:18.04-scm
   commands:
