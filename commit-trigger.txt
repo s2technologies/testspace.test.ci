@@ -1,1 +1,1 @@
-35.86.255.255 http://s2.2dfbe146-0bde-48f8-a0d2-9cf81085ca08.stridespace.com
+54.191.1.85 http://s2.21dd8c3f-3019-4e9f-a2ef-26e1f59d1798.stridespace.com
