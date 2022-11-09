@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/buildpack-deps:18.04-scm
+      - image: cimg/base:current
     branches:
       only:
         - standalone
-        - circle2
+        - circle
