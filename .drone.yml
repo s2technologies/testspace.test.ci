@@ -8,6 +8,6 @@ trigger:
     - standalone
 
 steps:
-- image: buildpack-deps:18.04-scm
+- image: buildpack-deps:22.04-scm
   commands:
     - echo ''
