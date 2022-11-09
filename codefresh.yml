@@ -21,7 +21,7 @@ steps:
 
   test:
     type: "freestyle" # Run any command
-    image: "buildpack-deps:18.04-scm" # The image in which command will be executed
+    image: "buildpack-deps:22.04-scm" # The image in which command will be executed
     working_directory: "${{clone}}" # Running command where code cloned
     commands:
       - echo ci script
@@ -29,7 +29,7 @@ steps:
 
   publish:
     type: "freestyle" # Run any command
-    image: buildpack-deps:18.04-scm # The image in which command will be executed
+    image: buildpack-deps:22.04-scm # The image in which command will be executed
     working_directory: "${{clone}}" # Running command where code cloned
     commands:
       - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
