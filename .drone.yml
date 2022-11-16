@@ -8,7 +8,7 @@ trigger:
     - standalone
 
 publish: &publish
-  image: buildpack-deps:22.04-scm
+  image: buildpack-deps:20.04-scm
   commands:
     - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
     - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
