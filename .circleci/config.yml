@@ -1,8 +1,11 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: cimg/base:current
+#    docker:
+#      - image: cimg/base:current
+    machine:
+      image: ubuntu-2004:current
+    resource_class: arm.medium
     branches:
       only:
         - standalone
@@ -14,7 +17,7 @@ jobs:
           name: Install and configure Testspace client
           command: |
             ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
-            curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+            curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-aarch64-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
             testspace config url $TESTSPACE_URL
             testspace -v
             printenv
