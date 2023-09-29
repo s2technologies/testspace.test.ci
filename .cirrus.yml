@@ -1,0 +1,6 @@
+container:
+  image: buildpack-deps:22.04-scm
+
+echo_task:
+  skip: true
+  echo_script: echo ''
