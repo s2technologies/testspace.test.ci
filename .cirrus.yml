@@ -1,0 +1,15 @@
+container:
+  image: buildpack-deps:22.04-scm
+
+echo_task:
+  echo_script: printenv | tee printenv.txt
+
+  always:
+    publish_script:
+      - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
+      - curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
+      - testspace config url "$TESTSPACE_URL/s2technologies:testspace.test.ci"
+      - testspace -v
+      - testspace config
+      - cat $CIRRUS_WORKING_DIR/.testspace
+      - testspace results.xml printenv.txt "standalone#cirrus.$CIRRUS_BUILD_ID" --repo=git --build-url=https://cirrus-ci.com/build/$CIRRUS_BUILD_ID
