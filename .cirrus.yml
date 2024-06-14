@@ -12,6 +12,14 @@ setup_task_template: &SETUP_TASK_TEMPLATE
 
 run_task:
   << : *SETUP_TASK_TEMPLATE
+  echo_script: echo $CI_NODE_INDEX
+
+publish_task:
+  << : *SETUP_TASK_TEMPLATE
+  depends_on:
+    - run
+  push_script:
+    - ./ts-time-push.sh
   matrix:
     env:
       JOB: JOB-1
@@ -33,13 +41,3 @@ run_task:
       JOB: JOB-9
     env:
       JOB: JOB-10
-
-  echo_script: echo $CI_NODE_INDEX
-
-publish_task:
-  << : *SETUP_TASK_TEMPLATE
-  depends_on:
-    - run
-  push_script:
-    - ./ts-time-push.sh
-
