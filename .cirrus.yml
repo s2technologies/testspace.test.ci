@@ -1,9 +1,9 @@
 container:
   image: buildpack-deps:22.04-scm
 
-install_task:
+setup_task_template: &SETUP_TASK_TEMPLATE
   only_if: $CIRRUS_BRANCH == 'cirrus'
-  echo_script:
+  setup_testspace_script:
     - ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
     - curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | tar -zxvf- -C /usr/local/bin
     - testspace config url $TESTSPACE_URL
@@ -11,9 +11,7 @@ install_task:
     - printenv
 
 run_task:
-  only_if: $CIRRUS_BRANCH == 'cirrus'
-  depends_on:
-    - install
+  << : *SETUP_TASK_TEMPLATE
   matrix:
     env:
       JOB: JOB-1
@@ -39,9 +37,9 @@ run_task:
   echo_script: echo $CI_NODE_INDEX
 
 publish_task:
-  only_if: $CIRRUS_BRANCH == 'cirrus'
+  << : *SETUP_TASK_TEMPLATE
   depends_on:
     - run
-  echo_script:
+  push_script:
     - ./ts-time-push.sh
 
