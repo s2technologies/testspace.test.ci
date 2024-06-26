@@ -12,8 +12,6 @@ setup_task_template: &SETUP_TASK_TEMPLATE
 
 run_task:
   << : *SETUP_TASK_TEMPLATE
-  depends_on:
-    - run
   echo_script: echo $CI_NODE_INDEX
   always:
     push_script:
