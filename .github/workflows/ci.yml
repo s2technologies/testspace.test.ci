@@ -7,16 +7,16 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         number: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Setup
         run: |
           ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
-          curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+          curl -s https://testspace-client.s3.amazonaws.com/testspace-darwin-arm64-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
           testspace config url $TESTSPACE_URL
           testspace -v
           printenv
