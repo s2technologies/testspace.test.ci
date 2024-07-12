@@ -1,1 +1,1 @@
-54.213.47.119 http://s2.573b887a-44b5-4d76-a8fd-bb2e7fddf229.stridespace.com
+52.12.1.255 http://s2.c72a29cf-d1b5-4af1-8943-3eebbbf7ce91.stridespace.com
