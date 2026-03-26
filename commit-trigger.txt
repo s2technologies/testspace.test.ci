@@ -1,1 +1,1 @@
-35.86.134.0 http://s2.9b3cca78-8ff7-45f9-9db2-981cc95ed232.stridespace.com
+35.85.65.134 http://s2.d50fffa7-0cec-42b8-8d64-dbc8b96f805b.stridespace.com
