@@ -1,15 +1,10 @@
-version: 2
+version: 2.1
+
 jobs:
   build:
-#    docker:
-#      - image: cimg/base:current
     machine:
-      image: ubuntu-2004:current
+      image: ubuntu-2404:current
     resource_class: arm.medium
-    branches:
-      only:
-        - standalone
-        - circle
     parallelism: 4
     steps:
       - checkout
@@ -17,16 +12,23 @@ jobs:
           name: Install and configure Testspace client
           command: |
             ./fix-hosts.sh && TESTSPACE_URL=$(cat testspace-url)
-            curl -s https://testspace-client.s3.amazonaws.com/testspace-linux-aarch64-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
+            curl -fsSL https://testspace-client.s3.amazonaws.com/testspace-linux-aarch64-dev.tgz | sudo tar -zxvf- -C /usr/local/bin
             testspace config url $TESTSPACE_URL
             testspace -v
-            printenv
       - run:
           name: Push to Testspace server
           command: |
-            for ((i=$CIRCLE_NODE_INDEX+1; i<=10; i=i+$CIRCLE_NODE_TOTAL))
-            do
-              export JOB=JOB-$i
-              ./ts-time-push.sh
+            for ((i=CIRCLE_NODE_INDEX+1; i<=10; i+=CIRCLE_NODE_TOTAL)); do
+              JOB=JOB-$i ./ts-time-push.sh
             done
           when: always
+
+workflows:
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - standalone
+                - circle
