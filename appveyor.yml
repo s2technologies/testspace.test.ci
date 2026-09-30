@@ -1,10 +1,16 @@
 version: 1.0.{build}
-configuration: Release
 
 branches:
   only:
-    - standalone
     - appveyor
+
+clone_depth: 1
+build: off
+
+environment:
+  matrix:
+    - JOBS: 1 2 3 4 5
+    - JOBS: 6 7 8 9 10
 
 install:
   - call fix-hosts.bat && set /p TESTSPACE_URL=<testspace-url
@@ -12,26 +18,6 @@ install:
   - 7z x -y testspace-windows-dev.zip
   - testspace config url %TESTSPACE_URL%
   - testspace -v
-  - set
-
-environment:
-  matrix:
-   - JOB: JOB-1
-   - JOB: JOB-2
-   - JOB: JOB-3
-   - JOB: JOB-4
-   - JOB: JOB-5
-   - JOB: JOB-6
-   - JOB: JOB-7
-   - JOB: JOB-8
-   - JOB: JOB-9
-   - JOB: JOB-10
-
-build_script:
-  - echo build script
 
 test_script:
-  - echo This is my custom test script
-
-after_test:
-  - ts-time-push.bat
+  - ps: foreach ($n in $env:JOBS.Split(' ')) { $env:JOB = "JOB-$n"; cmd /c ts-time-push.bat }
