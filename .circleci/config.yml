@@ -1,9 +1,18 @@
-version: 2
+version: 2.1
+
 jobs:
   build:
     docker:
       - image: cimg/base:current
-    branches:
-      only:
-        - standalone
-        - circle
+    steps:
+      - run: echo "No CircleCI build on this branch"
+
+workflows:
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - circle
+                - standalone
