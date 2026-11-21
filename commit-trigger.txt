@@ -1,1 +1,1 @@
-44.249.142.39 http://s2.f7d558f0-fbc5-4669-a6f3-77710186b05b.stridespace.com
+54.209.245.110 https://s2testorg.stridespace.com
